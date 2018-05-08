@@ -36,15 +36,6 @@ export default {
   data() {
     return {
       cars: [],
-      newCar: {
-        brand: '',
-        model: '',
-        year: '',
-        maxSpeed: '',
-        isAutomatic: '',
-        engine: '',
-        numberOfDoors: ''
-      }
     }
   },
   created() {
