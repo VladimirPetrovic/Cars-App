@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Add car</h1>
-    <form @submit.prevent="addCar(newCar)">
+    <form @submit.prevent="addCar">
       <div class="form-group col-4">
         <label for="brand">Brand</label>
         <input type="text" v-model="newCar.brand" class="form-control" id="brand">
@@ -47,7 +47,8 @@
       </div>
       <div class="form-group col-4">
         <button type="submit" class="btn btn-primary mr-2">Add car</button>
-        <button @click="resetForm($event)" class="btn btn-secondary">Reset</button>
+        <button type="reset" class="btn btn-secondary mr-2">Reset</button>
+        <button type="button" @click="showCarInfo" class="btn btn-secondary">Preview</button>
       </div>
     </form>
   </div>
@@ -73,19 +74,31 @@ export default {
     }
   },
   methods: {
-    addCar(car) {
-      carsService.addCar(car).then(response => {
-        this.$router.push('/cars')
-      }).catch(error => {
-        console.log(error)
-      })
+    addCar() {
+      if (this.$route.params.id) {
+        carsService.edit(this.$route.params.id, this.newCar).then(response => {
+          this.$router.push('/cars')
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        carsService.addCar(this.newCar).then(response => {
+          this.$router.push('/cars')
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     },
-    resetForm(event) {
-      this.newCar = {}
-      this.newCar.engine = 'petrol'
-      this.year = 1990
-      event.preventDefault()
+    showCarInfo() {
+      alert(JSON.stringify(this.newCar))
     }
+  },
+  created() {
+    carsService.getCar(this.$route.params.id).then(response => {
+      this.newCar = response.data
+    }).catch(error => {
+      console.log(error)
+    })
   }
 }
 </script>

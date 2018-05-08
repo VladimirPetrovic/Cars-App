@@ -46,6 +46,18 @@ export default class CarsService {
     addCar(car) {
         return axios.post('cars', car)
     }
+
+    getCar(id) {
+        return axios.get('cars/'+ id)
+    }
+
+    edit(id, car) {
+        return axios.put('cars/' + id, car)
+    }
+
+    delete(id) {
+        return axios.delete('cars/' + id)
+    }
 }
 
 export const carsService = new CarsService()

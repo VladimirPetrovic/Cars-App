@@ -12,6 +12,7 @@ const routes = [
   { path: '/', redirect: '/cars' },
   { path: '/cars', component: CarsApp, },
   { path: '/add', component: AddCar },
+  { path: '/edit/:id', component: AddCar }
 
 ]
 
