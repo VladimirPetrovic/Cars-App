@@ -46,7 +46,8 @@
         <input type="checkbox" v-model="newCar.isAutomatic">
       </div>
       <div class="form-group col-4">
-        <button type="submit" class="btn btn-primary">Add car</button>
+        <button type="submit" class="btn btn-primary mr-2">Add car</button>
+        <button @click="resetForm($event)" class="btn btn-secondary">Reset</button>
       </div>
     </form>
   </div>
@@ -78,6 +79,12 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+    resetForm(event) {
+      this.newCar = {}
+      this.newCar.engine = 'petrol'
+      this.year = 1990
+      event.preventDefault()
     }
   }
 }
